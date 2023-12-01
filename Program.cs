@@ -1,5 +1,6 @@
 ﻿using Raylib_cs;
 using static Raylib_cs.Raylib;
+using static Raylib_cs.ConfigFlags;
 
 namespace BrickBreaker
 {
@@ -10,6 +11,7 @@ namespace BrickBreaker
             const int screenWidth = 1280;
             const int screenHeight = 720;
 
+            SetConfigFlags(FLAG_WINDOW_RESIZABLE);    // Window configuration flags works but paddle doesnt move further, bricks positions messed up NOTE!
             InitWindow(screenWidth, screenHeight, "Brick Breaker");
 
             BrickBreakerGame game = new(screenWidth, screenHeight);
@@ -29,9 +31,9 @@ namespace BrickBreaker
                 EndDrawing();
             }
 
-            //    UnloadTexture(paddleTexture); DE-INITIALIZATION
+            //    UnloadTexture(paddleTexture);
 
-            CloseWindow();
+            CloseWindow(); // DE-INITIALIZATION
 
         }
     }
