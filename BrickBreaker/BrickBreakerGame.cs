@@ -9,6 +9,7 @@ namespace BrickBreaker
     {
         private Paddle paddle;
         private Ball ball;
+        private BrickManager brickManager;
 
         public BrickBreakerGame(int screenWidth, int screenHeight)
         {
@@ -17,6 +18,7 @@ namespace BrickBreaker
 
             paddle = new Paddle(screenWidth, screenHeight);
             ball = new Ball(new Vector2(screenWidth / 2, screenHeight - 50));  // Adjust the starting position
+            brickManager = new BrickManager();
         }
 
         public int ScreenWidth { get; }
@@ -30,7 +32,7 @@ namespace BrickBreaker
                 paddle.StartGame();
             }
 
-            ball.Update(paddle);
+            ball.Update(paddle, brickManager.Bricks); // Mention paddle & bricks list for collision detection
             paddle.Update();
         }
 
@@ -38,6 +40,7 @@ namespace BrickBreaker
         {
             paddle.Draw();
             ball.Draw();
+            brickManager.Draw();
         }
     }
 }
