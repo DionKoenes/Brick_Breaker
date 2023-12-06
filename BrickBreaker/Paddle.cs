@@ -9,12 +9,17 @@ public class Paddle
     public int ScreenHeight { get; }
 
     public Vector2 paddlePosition;
+    private Texture2D paddleTexture;
 
     private const float paddleSpeed = 5f;  // Value of speed
     private bool gameStarted = false;
 
     public Paddle(int screenWidth, int screenHeight)
     {
+        Image image = LoadImage("resources/paddle.png"); // Folder is located in bin/Debug/net5.0/resources || Resources folder should be with the exe executable
+        paddleTexture = LoadTextureFromImage(image); 
+        UnloadImage(image);
+
         ScreenWidth = screenWidth;
         ScreenHeight = screenHeight;
 
@@ -49,7 +54,10 @@ public class Paddle
     internal void Draw()
     {
         // Draw the rectangle at the updated position
-        DrawRectangle((int)paddlePosition.X, (int)paddlePosition.Y, 200, 14, Color.WHITE);
+        //DrawRectangle((int)paddlePosition.X, (int)paddlePosition.Y, 200, 20, Color.WHITE);
+
+        // Draw texture at the updated position
+        DrawTexture(paddleTexture, (int)paddlePosition.X, (int)paddlePosition.Y, Color.WHITE);
     }
 }
 

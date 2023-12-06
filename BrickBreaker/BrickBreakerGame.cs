@@ -30,6 +30,7 @@ namespace BrickBreaker
             {
                 ball.StartGame();
                 paddle.StartGame();
+                Console.WriteLine("Starting Game");
             }
 
             ball.Update(paddle, brickManager.Bricks); // Mention paddle & bricks list for collision detection

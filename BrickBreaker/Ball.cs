@@ -49,7 +49,7 @@ public class Ball
         }
 
         // Check for collision with the paddle
-        if (Position.Y + 10 >= paddle.paddlePosition.Y && Position.Y - 10 <= paddle.paddlePosition.Y + 14 &&
+        if (Position.Y + 10 >= paddle.paddlePosition.Y && Position.Y - 10 <= paddle.paddlePosition.Y + 20 &&
             Position.X >= paddle.paddlePosition.X && Position.X <= paddle.paddlePosition.X + 200)
         {
             BounceOffPaddle(paddle);

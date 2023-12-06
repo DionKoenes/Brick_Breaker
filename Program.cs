@@ -31,8 +31,6 @@ namespace BrickBreaker
                 EndDrawing();
             }
 
-            //    UnloadTexture(paddleTexture);
-
             CloseWindow(); // DE-INITIALIZATION
 
         }
