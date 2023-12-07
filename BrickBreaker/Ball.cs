@@ -25,7 +25,7 @@ public class Ball
         ballLaunched = true;
     }
 
-    internal void Update(Paddle paddle, List<Brick> bricks)
+    internal void Update()
     {
         if (!ballLaunched)
         {
@@ -47,27 +47,9 @@ public class Ball
         {
             Velocity.X = -Velocity.X;  // Reverse the X velocity to bounce
         }
-
-        // Check for collision with the paddle
-        if (Position.Y + 10 >= paddle.paddlePosition.Y && Position.Y - 10 <= paddle.paddlePosition.Y + 20 &&
-            Position.X >= paddle.paddlePosition.X && Position.X <= paddle.paddlePosition.X + 200)
-        {
-            BounceOffPaddle(paddle);
-        }
-
-        // Check for collision with bricks
-        foreach (Brick brick in bricks)
-        {
-            if (brick.IsActive && Position.Y + 10 >= brick.brickPosition.Y && Position.Y - 10 <= brick.brickPosition.Y + 40 &&
-            Position.X >= brick.brickPosition.X && Position.X <= brick.brickPosition.X + 100)
-            {
-                brick.IsActive = false;  // Deactivate the brick
-                BounceOffBrick(brick);
-            }
-        }
     }
 
-    private void BounceOffPaddle(Paddle paddle)
+    internal void BounceOffPaddle(Paddle paddle)
     {
         // Handle paddle collision and bounce logic
         float hitPositionOnPaddle = Position.X - paddle.paddlePosition.X;
@@ -79,7 +61,7 @@ public class Ball
         Velocity = new Vector2(BallSpeed * MathF.Sin(reflectionAngle), -BallSpeed * MathF.Cos(reflectionAngle));
     }
 
-    private void BounceOffBrick(Brick brick)
+    internal void BounceOffBrick(Brick brick)
     {
         Velocity = new Vector2(Velocity.X, -Velocity.Y);
 
@@ -87,9 +69,6 @@ public class Ball
         float moveAwayDistance = 2.0f;
         Position += Velocity * moveAwayDistance;
     }
-
-
-
 
     internal void Draw()
     {

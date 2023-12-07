@@ -14,6 +14,8 @@ namespace BrickBreaker
             SetConfigFlags(FLAG_WINDOW_RESIZABLE);    // Window configuration flags works but paddle doesnt move further, bricks positions messed up NOTE!
             InitWindow(screenWidth, screenHeight, "Brick Breaker");
 
+            InitAudioDevice();
+
             BrickBreakerGame game = new(screenWidth, screenHeight);
 
             SetTargetFPS(60);
@@ -31,6 +33,7 @@ namespace BrickBreaker
                 EndDrawing();
             }
 
+            CloseAudioDevice();
             CloseWindow(); // DE-INITIALIZATION
 
         }
