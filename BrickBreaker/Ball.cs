@@ -9,7 +9,7 @@ public class Ball
 {
     public Vector2 Position;
     private Vector2 Velocity;
-    public const float BallSpeed = 10f;  // Adjust the speed as needed
+    public const float BallSpeed = 10f;  // Speed of the ball
     private bool ballLaunched = false;
 
     public Ball(Vector2 initialPosition)
@@ -30,8 +30,8 @@ public class Ball
         if (!ballLaunched)
         {
             // If the game hasn't started, move the ball with the paddle
-            Position.X = paddle.paddlePosition.X + 200 / 2;
-            Position.Y = paddle.paddlePosition.Y - 15; // Adjust as needed
+            Position.X = paddle.paddlePosition.X + 200 / 2; // Position horizontally on the paddle when gaame starts
+            Position.Y = paddle.paddlePosition.Y - 5; // Position vertically above the paddle when game starts
         }
 
         // Update ball position based on velocity

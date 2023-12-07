@@ -12,7 +12,6 @@ public class Paddle
     private Texture2D paddleTexture;
 
     private const float paddleSpeed = 5f;  // Value of speed
-    private bool gameStarted = false;
 
     public Paddle(int screenWidth, int screenHeight)
     {
@@ -25,12 +24,6 @@ public class Paddle
 
         // Initialize the position for the drawn rectangle
         paddlePosition = new Vector2(screenWidth / 2 - 100, screenHeight - 35);
-    }
-
-    internal void StartGame()
-    {
-        // Set gameStarted to true when the game starts
-        gameStarted = true;
     }
 
     internal void Update()

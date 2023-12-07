@@ -7,11 +7,14 @@ namespace BrickBreaker
 {
     internal class BrickBreakerGame
     {
+        public int ScreenWidth { get; }
+        public int ScreenHeight { get; }
+
         private Paddle paddle;
         private Ball ball;
         private BrickManager brickManager;
 
-        private bool gameStarted = false;
+        public bool gameStarted = false;
 
         Sound paddleBoink = LoadSound("resources/audio/paddleboink.wav");
         Sound brickBoink = LoadSound("resources/audio/brickboink.wav");
@@ -26,15 +29,11 @@ namespace BrickBreaker
             brickManager = new BrickManager();
         }
 
-        public int ScreenWidth { get; }
-        public int ScreenHeight { get; }
-
         internal void Update()
         { 
             if (!gameStarted && IsKeyPressed(KeyboardKey.KEY_SPACE))
             {
                 ball.StartGame();
-                paddle.StartGame();
                 Console.WriteLine("Starting Game");
                 gameStarted = true;
             }
@@ -53,19 +52,19 @@ namespace BrickBreaker
             if (ball.Position.Y + 10 >= paddle.paddlePosition.Y && ball.Position.Y - 10 <= paddle.paddlePosition.Y + 20 &&
                 ball.Position.X >= paddle.paddlePosition.X && ball.Position.X <= paddle.paddlePosition.X + 200)
             {
-                ball.BounceOffPaddle(paddle);
                 PlaySound(paddleBoink);
+                ball.BounceOffPaddle(paddle);
             }
 
             // Check for collision with bricks
             foreach (Brick brick in brickManager.Bricks)
             {
-                if (brick.IsActive && ball.Position.Y + 10 >= brick.brickPosition.Y && ball.Position.Y - 10 <= brick.brickPosition.Y + 40 &&
-                ball.Position.X >= brick.brickPosition.X && ball.Position.X <= brick.brickPosition.X + 100)
+                if (brick.IsActive && ball.Position.Y + 10 >= brick.BrickPosition.Y && ball.Position.Y - 10 <= brick.BrickPosition.Y + 40 &&
+                ball.Position.X >= brick.BrickPosition.X && ball.Position.X <= brick.BrickPosition.X + 100)
                 {
+                    PlaySound(brickBoink);
                     brick.IsActive = false;  // Deactivate the brick
                     ball.BounceOffBrick(brick);
-                    PlaySound(brickBoink);
                 }
             }
         }
