@@ -7,7 +7,7 @@ using static Raylib_cs.Raylib;
 
 public class Ball
 {
-    public Vector2 Position { get; private set; }
+    public Vector2 Position;
     private Vector2 Velocity;
     public const float BallSpeed = 10f;  // Adjust the speed as needed
     private bool ballLaunched = false;
@@ -25,12 +25,13 @@ public class Ball
         ballLaunched = true;
     }
 
-    internal void Update()
+    internal void Update(Paddle paddle)
     {
         if (!ballLaunched)
         {
-            // If the game hasn't started, keep the ball in place
-            Velocity = new Vector2(0, 0);
+            // If the game hasn't started, move the ball with the paddle
+            Position.X = paddle.paddlePosition.X + 200 / 2;
+            Position.Y = paddle.paddlePosition.Y - 15; // Adjust as needed
         }
 
         // Update ball position based on velocity

@@ -35,19 +35,16 @@ public class Paddle
 
     internal void Update()
     {
-        if (gameStarted)
+        // Handle input and update paddle position
+        if (IsKeyDown(KeyboardKey.KEY_LEFT) && paddlePosition.X > 0)
         {
-            // Handle input and update paddle position
-            if (IsKeyDown(KeyboardKey.KEY_LEFT) && paddlePosition.X > 0)
-            {
-                paddlePosition.X -= paddleSpeed;
-                Console.WriteLine("Moving Left");
-            }
-            if (IsKeyDown(KeyboardKey.KEY_RIGHT) && paddlePosition.X < ScreenWidth - 200) // Adjusted based on drawn rectangle width
-            {
-                paddlePosition.X += paddleSpeed;
-                Console.WriteLine("Moving Right");
-            }
+            paddlePosition.X -= paddleSpeed;
+            Console.WriteLine("Moving Left");
+        }
+        if (IsKeyDown(KeyboardKey.KEY_RIGHT) && paddlePosition.X < ScreenWidth - 200) // Adjusted based on drawn rectangle width
+        {
+            paddlePosition.X += paddleSpeed;
+            Console.WriteLine("Moving Right");
         }
     }
 

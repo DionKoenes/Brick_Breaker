@@ -40,7 +40,7 @@ namespace BrickBreaker
             }
 
 
-            ball.Update(); // Mention paddle & bricks list for collision detection
+            ball.Update(paddle); // Mention paddle for movement before start of the game
             paddle.Update();
 
             CheckBallCollisions();
