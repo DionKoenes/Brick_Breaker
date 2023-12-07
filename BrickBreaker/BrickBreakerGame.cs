@@ -11,6 +11,8 @@ namespace BrickBreaker
         private Ball ball;
         private BrickManager brickManager;
 
+        private bool gameStarted = false;
+
         Sound paddleBoink = LoadSound("resources/audio/paddleboink.wav");
         Sound brickBoink = LoadSound("resources/audio/brickboink.wav");
 
@@ -29,17 +31,20 @@ namespace BrickBreaker
 
         internal void Update()
         { 
-            if (IsKeyPressed(KeyboardKey.KEY_SPACE))
+            if (!gameStarted && IsKeyPressed(KeyboardKey.KEY_SPACE))
             {
                 ball.StartGame();
                 paddle.StartGame();
                 Console.WriteLine("Starting Game");
+                gameStarted = true;
             }
+
 
             ball.Update(); // Mention paddle & bricks list for collision detection
             paddle.Update();
 
             CheckBallCollisions();
+
         }
 
         private void CheckBallCollisions()
