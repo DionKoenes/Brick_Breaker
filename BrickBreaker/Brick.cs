@@ -1,28 +1,49 @@
 using Raylib_cs;
-using static Raylib_cs.Raylib;
 using System.Numerics;
 using System;
 
-public class Brick
+public class Brick : SpriteNode
 {
+    public enum BrickType
+    {
+        Normal,
+        Special,
+    }
+
+    public BrickType Type { get; private set; }
     public Vector2 BrickPosition { get; private set; }
     public int Width { get; private set; }
     public int Height { get; private set; }
     public bool IsEnabled { get; set; }
 
-    public Brick(Vector2 position, int width, int height)
+    public Brick(Vector2 position, int width, int height, BrickType type)
+        : base(GetTexturePath(type))
     {
         BrickPosition = position;
         Width = width;
         Height = height;
+        Type = type;
         IsEnabled = true; 
     }
 
-    public void Draw()
+    private static string GetTexturePath(BrickType type)
+    {
+        switch (type)
+        {
+            case BrickType.Normal:
+                return "resources/brick_normal.png";
+            case BrickType.Special:
+                return "resources/brick_special.png";
+            default:
+                throw new ArgumentOutOfRangeException(nameof(type), type, null);
+        }
+    }
+
+    internal void Draw()
     {
         if (IsEnabled)
         {
-            DrawRectangle((int)BrickPosition.X, (int)BrickPosition.Y, Width, Height, Color.WHITE);
+            Draw(BrickPosition, Color.WHITE);
         }
     }
 }

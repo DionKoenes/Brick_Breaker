@@ -7,12 +7,10 @@ namespace BrickBreaker
 {
     internal class BrickBreakerGame
     {
-        public int ScreenWidth { get; }
-        public int ScreenHeight { get; }
-
         private Paddle paddle;
         private Ball ball;
         private BrickManager brickManager;
+        private Background background;
 
         public bool gameStarted = false;
 
@@ -21,12 +19,10 @@ namespace BrickBreaker
 
         public BrickBreakerGame(int screenWidth, int screenHeight)
         {
-            ScreenWidth = screenWidth;
-            ScreenHeight = screenHeight;
-
-            paddle = new Paddle(screenWidth, screenHeight);
-            ball = new Ball(new Vector2(screenWidth / 2, screenHeight - 50));  // Adjust the starting position
+            paddle = new Paddle();
+            ball = new Ball(new Vector2(GetScreenWidth() / 2, GetScreenHeight() - 50));  // Adjust the starting position
             brickManager = new BrickManager();
+            background = new Background();
         }
 
         internal void Update()
@@ -74,6 +70,7 @@ namespace BrickBreaker
 
         internal void Draw()
         {
+            background.Draw();
             paddle.Draw();
             ball.Draw();
             brickManager.Draw();
@@ -83,6 +80,8 @@ namespace BrickBreaker
         {
             UnloadSound(paddleBoink);
             UnloadSound(brickBoink);
+
+            SpriteNode.UnloadAllTextures();
         }
     }
 }

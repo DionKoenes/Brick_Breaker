@@ -1,11 +1,9 @@
 using Raylib_cs;
 using System;
-using System.Collections.Generic;
 using System.Numerics;
-using System.Reflection.Metadata;
 using static Raylib_cs.Raylib;
 
-public class Ball
+public class Ball : SpriteNode
 {
     public Vector2 Position;
     private Vector2 Velocity;
@@ -17,6 +15,7 @@ public class Ball
     private bool ballLaunched = false;
 
     public Ball(Vector2 initialPosition)
+        : base("resources/ball.png")
     {
         Position = initialPosition;
         Velocity = new Vector2(0, -BallSpeed);  // Initial velocity, moving upward
@@ -80,8 +79,7 @@ public class Ball
 
     internal void Draw()
     {
-        // Draw the ball at the current position
-        DrawCircle((int)Position.X, (int)Position.Y, Radius, Color.WHITE);
+        Draw(Position, Color.WHITE);
     }
 }
 

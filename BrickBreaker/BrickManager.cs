@@ -1,4 +1,3 @@
-using Raylib_cs;
 using static Raylib_cs.Raylib;
 using System.Collections.Generic;
 using System.Numerics;
@@ -10,6 +9,7 @@ public class BrickManager
 
     public BrickManager()
     {
+        Random random = new Random();
         bricks = new List<Brick>();
 
         int brickWidth = 100; // Adjust this value to set the width of the bricks
@@ -32,7 +32,16 @@ public class BrickManager
         {
             for (int v = 0; v < vrows; v++)
             {
-                Brick brick = new Brick(new Vector2(startX + h * (brickWidth + horizontalGap), startY + v * (brickHeight + verticalGap)), brickWidth, brickHeight);
+                // Randomly choose the type of brick (Normal or Special)
+                Brick.BrickType brickType = (random.Next(2) == 0) ? Brick.BrickType.Normal : Brick.BrickType.Special;
+
+                Brick brick = new Brick(
+                    new Vector2(startX + h * (brickWidth + horizontalGap), startY + v * (brickHeight + verticalGap)),
+                    brickWidth,
+                    brickHeight,
+                    brickType
+                );
+
                 bricks.Add(brick);
             }
         }
