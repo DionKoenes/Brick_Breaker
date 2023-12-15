@@ -13,8 +13,7 @@ public class Ball
     public int Radius { get; }
 
     private int paddleBallOffset;
-
-    public const float BallSpeed = 10f;  // Speed of the ball
+    private int BallSpeed;
     private bool ballLaunched = false;
 
     public Ball(Vector2 initialPosition)
@@ -22,6 +21,7 @@ public class Ball
         Position = initialPosition;
         Velocity = new Vector2(0, -BallSpeed);  // Initial velocity, moving upward
         Radius = 10; // Size of ball in pixels
+        BallSpeed = 10; // Speed of the ball
         paddleBallOffset = 5; // Amount of pixels between ball and paddle on before game starts
     }
 
