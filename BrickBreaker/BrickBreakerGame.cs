@@ -59,14 +59,14 @@ namespace BrickBreaker
             // Check for collision with bricks
             foreach (Brick brick in brickManager.Bricks)
             {
-                if (brick.IsActive && 
+                if (brick.IsEnabled && 
                     ball.Position.Y + ball.Radius >= brick.BrickPosition.Y && //Check if bottom side of ball is below or same as top edge of brick.
                     ball.Position.Y - ball.Radius <= brick.BrickPosition.Y + brick.Height && //Checks if top side of ball is above or same level as bottom of brick.
                     ball.Position.X + ball.Radius >= brick.BrickPosition.X && //Checks if right side of ball is right of or same level as left of brick.
                     ball.Position.X - ball.Radius <= brick.BrickPosition.X + brick.Width) //Checks if left side of ball is left of or same as right edge of brick.
                 {
                     PlaySound(brickBoink);
-                    brick.IsActive = false;  // Deactivate the brick
+                    brick.IsEnabled = false;  // Deactivate the brick
                     ball.BounceOffBrick(brick);
                 }
             }
