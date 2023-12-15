@@ -9,6 +9,9 @@ public class Ball
 {
     public Vector2 Position;
     private Vector2 Velocity;
+
+    public int Radius { get; }
+
     public const float BallSpeed = 10f;  // Speed of the ball
     private bool ballLaunched = false;
 
@@ -16,6 +19,7 @@ public class Ball
     {
         Position = initialPosition;
         Velocity = new Vector2(0, -BallSpeed);  // Initial velocity, moving upward
+        Radius = 10;
     }
 
     internal void StartGame()
@@ -74,7 +78,7 @@ public class Ball
     internal void Draw()
     {
         // Draw the ball at the current position
-        DrawCircle((int)Position.X, (int)Position.Y, 10, Color.WHITE);
+        DrawCircle((int)Position.X, (int)Position.Y, Radius, Color.WHITE);
     }
 }
 

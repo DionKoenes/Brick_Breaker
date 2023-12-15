@@ -34,6 +34,7 @@ namespace BrickBreaker
             }
 
             CloseAudioDevice();
+            game.Unload();
             CloseWindow(); // DE-INITIALIZATION
 
         }

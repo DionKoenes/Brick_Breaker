@@ -59,8 +59,11 @@ namespace BrickBreaker
             // Check for collision with bricks
             foreach (Brick brick in brickManager.Bricks)
             {
-                if (brick.IsActive && ball.Position.Y + 10 >= brick.BrickPosition.Y && ball.Position.Y - 10 <= brick.BrickPosition.Y + 40 &&
-                ball.Position.X >= brick.BrickPosition.X && ball.Position.X <= brick.BrickPosition.X + 100)
+                if (brick.IsActive && 
+                    ball.Position.Y + ball.Radius >= brick.BrickPosition.Y && //Check if bottom side of ball is below or same as top edge of brick.
+                    ball.Position.Y - ball.Radius <= brick.BrickPosition.Y + brick.Height && //Checks if top side of ball is above or same level as bottom of brick.
+                    ball.Position.X + ball.Radius >= brick.BrickPosition.X && //Checks if right side of ball is right of or same level as left of brick.
+                    ball.Position.X - ball.Radius <= brick.BrickPosition.X + brick.Width) //Checks if left side of ball is left of or same as right edge of brick.
                 {
                     PlaySound(brickBoink);
                     brick.IsActive = false;  // Deactivate the brick
@@ -74,6 +77,12 @@ namespace BrickBreaker
             paddle.Draw();
             ball.Draw();
             brickManager.Draw();
+        }
+
+        internal void Unload()
+        {
+            UnloadSound(paddleBoink);
+            UnloadSound(brickBoink);
         }
     }
 }
