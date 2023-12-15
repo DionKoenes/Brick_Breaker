@@ -11,6 +11,9 @@ public class Paddle
     public Vector2 paddlePosition;
     private Texture2D paddleTexture;
 
+    public int paddleWidth { get; }
+    public int paddleHeight { get; }
+
     private const float paddleSpeed = 5f;  // Value of speed
 
     public Paddle(int screenWidth, int screenHeight)
@@ -21,6 +24,9 @@ public class Paddle
 
         ScreenWidth = screenWidth;
         ScreenHeight = screenHeight;
+
+        paddleWidth = 200;
+        paddleHeight = 20;
 
         // Initialize the position for the drawn rectangle
         paddlePosition = new Vector2(screenWidth / 2 - 100, screenHeight - 35);
@@ -34,7 +40,7 @@ public class Paddle
             paddlePosition.X -= paddleSpeed;
             Console.WriteLine("Moving Left");
         }
-        if (IsKeyDown(KeyboardKey.KEY_RIGHT) && paddlePosition.X < ScreenWidth - 200) // Adjusted based on drawn rectangle width
+        if (IsKeyDown(KeyboardKey.KEY_RIGHT) && paddlePosition.X < ScreenWidth - paddleWidth) // Adjusted based on drawn rectangle width
         {
             paddlePosition.X += paddleSpeed;
             Console.WriteLine("Moving Right");

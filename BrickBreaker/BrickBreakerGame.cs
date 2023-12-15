@@ -49,8 +49,8 @@ namespace BrickBreaker
         private void CheckBallCollisions()
         {
             // Check for collision with the paddle
-            if (ball.Position.Y + 10 >= paddle.paddlePosition.Y && ball.Position.Y - 10 <= paddle.paddlePosition.Y + 20 &&
-                ball.Position.X >= paddle.paddlePosition.X && ball.Position.X <= paddle.paddlePosition.X + 200)
+            if (ball.Position.Y + ball.Radius >= paddle.paddlePosition.Y && ball.Position.Y - ball.Radius <= paddle.paddlePosition.Y + paddle.paddleHeight &&
+                ball.Position.X >= paddle.paddlePosition.X && ball.Position.X <= paddle.paddlePosition.X + paddle.paddleWidth)
             {
                 PlaySound(paddleBoink);
                 ball.BounceOffPaddle(paddle);
