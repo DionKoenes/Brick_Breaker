@@ -31,6 +31,12 @@ public class Ball : SpriteNode
         ballLaunched = true;
     }
 
+    internal void LostLife()
+    {
+        // Reset ball position to paddle
+        ballLaunched = false;
+    }
+
     internal void Update(Paddle paddle)
     {
         if (!ballLaunched)
@@ -39,7 +45,6 @@ public class Ball : SpriteNode
             Position.X = paddle.paddlePosition.X - 10 + paddle.paddleWidth / 2; // Position horizontally on the paddle when gaame starts
             Position.Y = paddle.paddlePosition.Y - paddleBallOffset; // Position vertically above the paddle when game starts
         }
-
         // Update ball position based on velocity
         Position += Velocity;
 
@@ -55,6 +60,7 @@ public class Ball : SpriteNode
             Velocity.X = -Velocity.X;  // Reverse the X velocity to bounce
         }
     }
+    
 
     internal void BounceOffPaddle(Paddle paddle)
     {
