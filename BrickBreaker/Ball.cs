@@ -12,6 +12,8 @@ public class Ball
 
     public int Radius { get; }
 
+    private int paddleBallOffset;
+
     public const float BallSpeed = 10f;  // Speed of the ball
     private bool ballLaunched = false;
 
@@ -19,7 +21,8 @@ public class Ball
     {
         Position = initialPosition;
         Velocity = new Vector2(0, -BallSpeed);  // Initial velocity, moving upward
-        Radius = 10;
+        Radius = 10; // Size of ball in pixels
+        paddleBallOffset = 5; // Amount of pixels between ball and paddle on before game starts
     }
 
     internal void StartGame()
@@ -34,8 +37,8 @@ public class Ball
         if (!ballLaunched)
         {
             // If the game hasn't started, move the ball with the paddle
-            Position.X = paddle.paddlePosition.X + 200 / 2; // Position horizontally on the paddle when gaame starts
-            Position.Y = paddle.paddlePosition.Y - 5; // Position vertically above the paddle when game starts
+            Position.X = paddle.paddlePosition.X + paddle.paddleWidth / 2; // Position horizontally on the paddle when gaame starts
+            Position.Y = paddle.paddlePosition.Y - paddleBallOffset; // Position vertically above the paddle when game starts
         }
 
         // Update ball position based on velocity
