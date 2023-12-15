@@ -19,9 +19,9 @@ public class Ball : SpriteNode
     {
         Position = initialPosition;
         Velocity = new Vector2(0, -BallSpeed);  // Initial velocity, moving upward
-        Radius = 10; // Size of ball in pixels
+        Radius = 12; // Size of ball in pixels
         BallSpeed = 10; // Speed of the ball
-        paddleBallOffset = 5; // Amount of pixels between ball and paddle on before game starts
+        paddleBallOffset = 6; // Amount of pixels between ball and paddle on before game starts
     }
 
     internal void StartGame()

@@ -12,8 +12,8 @@ public class BrickManager
         Random random = new Random();
         bricks = new List<Brick>();
 
-        int brickWidth = 100; // Adjust this value to set the width of the bricks
-        int brickHeight = 40; // Adjust this value to set the height of the bricks
+        int brickWidth = 104; // Adjust this value to set the width of the bricks
+        int brickHeight = 42; // Adjust this value to set the height of the bricks
         int horizontalGap = 20; // Adjust this value to set the gap between bricks horizontally
         int verticalGap = 20;   // Adjust this value to set the gap between bricks vertically
         int hrows = 7; // Adjust this value to set the number of horizontal rows
