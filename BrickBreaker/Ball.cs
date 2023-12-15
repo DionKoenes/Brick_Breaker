@@ -19,9 +19,9 @@ public class Ball : SpriteNode
     {
         Position = initialPosition;
         Velocity = new Vector2(0, -BallSpeed);  // Initial velocity, moving upward
-        Radius = 12; // Size of ball in pixels
+        Radius = 10; // Size of ball in pixels
         BallSpeed = 10; // Speed of the ball
-        paddleBallOffset = 6; // Amount of pixels between ball and paddle on before game starts
+        paddleBallOffset = 20; // Amount of pixels between ball and paddle before game starts
     }
 
     internal void StartGame()
@@ -36,7 +36,7 @@ public class Ball : SpriteNode
         if (!ballLaunched)
         {
             // If the game hasn't started, move the ball with the paddle
-            Position.X = paddle.paddlePosition.X + paddle.paddleWidth / 2; // Position horizontally on the paddle when gaame starts
+            Position.X = paddle.paddlePosition.X - 10 + paddle.paddleWidth / 2; // Position horizontally on the paddle when gaame starts
             Position.Y = paddle.paddlePosition.Y - paddleBallOffset; // Position vertically above the paddle when game starts
         }
 
@@ -50,7 +50,7 @@ public class Ball : SpriteNode
         }
 
         // Bounce off the sides of the screen
-        if (Position.X <= 0 || Position.X >= GetScreenWidth())
+        if (Position.X <= 0 || Position.X >= GetScreenWidth() - Radius)
         {
             Velocity.X = -Velocity.X;  // Reverse the X velocity to bounce
         }
@@ -60,9 +60,9 @@ public class Ball : SpriteNode
     {
         // Handle paddle collision and bounce logic
         float hitPositionOnPaddle = Position.X - paddle.paddlePosition.X;
-        float normalizedHitPosition = hitPositionOnPaddle / 200f; // Normalize hit position between 0 and 1
-        float maxReflectionAngle = MathF.PI / 6;  // Equivalent to 30 degrees in radians
-        float reflectionAngle = (2 * normalizedHitPosition - 1) * maxReflectionAngle;
+        float normalizedHitPosition = hitPositionOnPaddle / paddle.paddleWidth; // Normalize hit position between 0 and 1
+        float maxReflectionAngle = MathF.PI / 6;  // Equivalent to 30 degrees
+        float reflectionAngle = (2 * normalizedHitPosition -1) * maxReflectionAngle;
 
         // Calculate new velocity based on reflection angle
         Velocity = new Vector2(BallSpeed * MathF.Sin(reflectionAngle), -BallSpeed * MathF.Cos(reflectionAngle));

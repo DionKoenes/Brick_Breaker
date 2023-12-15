@@ -18,7 +18,7 @@ public class Paddle : SpriteNode
         paddleWidth = 200;
         paddleHeight = 20;
 
-        // Initialize the position for the drawn rectangle
+        // Initialize the position for the paddle
         paddlePosition = new Vector2(GetScreenWidth() / 2 - 100, GetScreenHeight() - 35);
     }
 
