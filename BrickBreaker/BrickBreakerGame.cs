@@ -16,6 +16,7 @@ namespace BrickBreaker
         private int lives = 3;
         private bool gameOver = false;
         private bool gameStarted = false;
+
         private GameState gameState = GameState.Home;
 
         Sound paddleBoink = LoadSound("resources/audio/paddleboink.wav");
@@ -67,7 +68,7 @@ namespace BrickBreaker
             paddle.Update();
             CheckBallCollisions();
 
-            if (IsKeyPressed(KeyboardKey.KEY_ESCAPE))
+            if (IsKeyPressed(KeyboardKey.KEY_Q))
             {
                 gameState = GameState.Home;
             }
@@ -107,8 +108,15 @@ namespace BrickBreaker
                     brick.IsEnabled = false;
                     ball.BounceOffBrick(brick);
 
-                    // Increase the score when a brick is hit
-                    scoreManager.IncreaseScore(1);
+                    // Increase the score based on the type of brick
+                    if (brick.Type == Brick.BrickType.Normal)
+                    {
+                        scoreManager.IncreaseScore(1);
+                    }
+                    else if (brick.Type == Brick.BrickType.Special)
+                    {
+                        scoreManager.IncreaseScore(2);
+                    }
                 }
             }
 
@@ -140,7 +148,10 @@ namespace BrickBreaker
             switch (gameState)
             {
                 case GameState.Home:
-                    DrawText("Press SPACE to start", GetScreenWidth() / 2 - 200, GetScreenHeight() / 2, 30, Color.WHITE);
+                    DrawText("Press SPACE to start!", GetScreenWidth() / 2 - 160, GetScreenHeight() / 2 - 75, 30, Color.WHITE);
+                    DrawText("Use SPACE to launch the ball and press A & D keys to move the paddle!", GetScreenWidth() / 2 - 550, GetScreenHeight() / 2 - 25, 30, Color.GOLD);
+                    DrawText("Press Q for Title Screen!", GetScreenWidth() / 2 - 180, GetScreenHeight() / 2 + 25, 30, Color.RED);
+                    DrawText("Press ESQ to quit application", GetScreenWidth() / 2 - 200, GetScreenHeight() / 2 + 75, 30, Color.LIME);
                     break;
                 case GameState.Playing:
                     DrawPlaying();
@@ -170,7 +181,8 @@ namespace BrickBreaker
 
         private void DrawGameOver()
         {
-            DrawText("Press R to restart!", GetScreenWidth() / 2 - 150, GetScreenHeight() / 2, 30, Color.WHITE);
+            DrawText("GAME OVER", GetScreenWidth() / 2 - 150, GetScreenHeight() / 2, 50, Color.RED);
+            DrawText("Press R to restart!", GetScreenWidth() / 2 - 150, GetScreenHeight() / 2 + 50, 30, Color.WHITE);
         }
 
         internal void Unload()

@@ -28,12 +28,10 @@ public class Paddle : SpriteNode
         if (IsKeyDown(KeyboardKey.KEY_LEFT) && paddlePosition.X > 0)
         {
             paddlePosition.X -= paddleSpeed;
-            Console.WriteLine("Moving Left");
         }
-        if (IsKeyDown(KeyboardKey.KEY_RIGHT) && paddlePosition.X < GetScreenWidth() - paddleWidth) // Adjusted based on drawn rectangle width
+        if (IsKeyDown(KeyboardKey.KEY_RIGHT) && paddlePosition.X < GetScreenWidth() - paddleWidth)
         {
             paddlePosition.X += paddleSpeed;
-            Console.WriteLine("Moving Right");
         }
     }
 

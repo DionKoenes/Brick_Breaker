@@ -11,7 +11,6 @@ namespace BrickBreaker
             const int screenWidth = 1280;
             const int screenHeight = 720;
 
-            SetConfigFlags(FLAG_WINDOW_RESIZABLE);    // Window configuration flags works but paddle doesnt move further, bricks positions messed up NOTE!
             InitWindow(screenWidth, screenHeight, "Brick Breaker");
 
             InitAudioDevice();
@@ -26,16 +25,17 @@ namespace BrickBreaker
 
                 BeginDrawing();
 
-                ClearBackground(Color.BLACK);  // Clear the background
+                ClearBackground(Color.BLACK);
 
                 game.Draw();
 
                 EndDrawing();
             }
 
+            // DE-INITIALIZATION
             CloseAudioDevice();
             game.Unload();
-            CloseWindow(); // DE-INITIALIZATION
+            CloseWindow();
 
         }
     }

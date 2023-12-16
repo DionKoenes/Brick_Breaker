@@ -35,7 +35,7 @@ public class Brick : SpriteNode
             case BrickType.Special:
                 return "resources/brick_special.png";
             default:
-                throw new ArgumentOutOfRangeException(nameof(type), type, null);
+                throw new ArgumentOutOfRangeException(nameof(type), type, $"Unexpected value of {nameof(BrickType)}: {type}");
         }
     }
 
