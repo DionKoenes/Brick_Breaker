@@ -177,7 +177,7 @@ namespace BrickBreaker
             {
                 case GameState.Home:
                     DrawCenteredText("Press SPACE to start!", GetScreenHeight() / 2 - 75, 30, Color.WHITE);
-                    DrawCenteredText("Use SPACE to launch the ball and press A & D keys to move the paddle!", GetScreenHeight() / 2 - 25, 30, Color.GOLD);
+                    DrawCenteredText("Use SPACE to launch the ball and press <- & -> keys to move the paddle!", GetScreenHeight() / 2 - 25, 30, Color.GOLD);
                     DrawCenteredText("Press Q for Title Screen!", GetScreenHeight() / 2 + 25, 30, Color.RED);
                     DrawCenteredText("Press ESQ to quit application", GetScreenHeight() / 2 + 75, 30, Color.LIME);
                     break;
