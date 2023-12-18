@@ -35,6 +35,12 @@ public class Paddle : SpriteNode
         }
     }
 
+    internal void ResetPaddle()
+    {
+        // Reset ball position to paddle
+        paddlePosition = new Vector2(GetScreenWidth() / 2 - 100, GetScreenHeight() - 35);
+    }
+
     internal void Draw()
     {
         Draw(paddlePosition, Color.WHITE);

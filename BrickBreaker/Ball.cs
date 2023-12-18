@@ -31,7 +31,7 @@ public class Ball : SpriteNode
         ballLaunched = true;
     }
 
-    internal void LostLife()
+    internal void ResetBall()
     {
         // Reset ball position to paddle
         ballLaunched = false;

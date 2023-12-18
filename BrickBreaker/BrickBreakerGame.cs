@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Numerics;
 using Raylib_cs;
 using static Raylib_cs.Raylib;
@@ -15,6 +16,7 @@ namespace BrickBreaker
 
         private int lives = 3;
         private bool gameOver = false;
+        private bool gameFinished = false;
         private bool gameStarted = false;
 
         private GameState gameState = GameState.Home;
@@ -41,6 +43,9 @@ namespace BrickBreaker
                 case GameState.Playing:
                     UpdatePlaying();
                     break;
+                case GameState.Finished:
+                    UpdateFinished();
+                    break;
                 case GameState.GameOver:
                     UpdateGameOver();
                     break;
@@ -57,20 +62,29 @@ namespace BrickBreaker
 
         private void UpdatePlaying()
         {
-            if (!gameStarted && gameOver == false && IsKeyPressed(KeyboardKey.KEY_SPACE))
+            if (!gameStarted && !gameOver && !gameFinished && IsKeyPressed(KeyboardKey.KEY_SPACE))
             {
                 ball.StartGame();
-                Console.WriteLine("Starting Game");
                 gameStarted = true;
             }
 
             ball.Update(paddle);
             paddle.Update();
             CheckBallCollisions();
+            Finished();
 
             if (IsKeyPressed(KeyboardKey.KEY_Q))
             {
                 gameState = GameState.Home;
+            }
+        }
+
+        private void UpdateFinished()
+        {
+            if (IsKeyPressed(KeyboardKey.KEY_R))
+            {
+                Restarted();
+                gameState = GameState.Playing;
             }
         }
 
@@ -124,7 +138,7 @@ namespace BrickBreaker
             if (ball.Position.Y > GetScreenHeight())
             {
                 lives--;
-                ball.LostLife();
+                ball.ResetBall();
                 gameStarted = false;
 
                 // Check if game over
@@ -139,8 +153,22 @@ namespace BrickBreaker
         {
             lives = 3;
             gameOver = false;
+            gameFinished = false;
             brickManager = new BrickManager();
             scoreManager.ResetScore();
+        }
+
+        private void Finished()
+        {
+            bool allBricksDisabled = brickManager.Bricks.All(brick => !brick.IsEnabled);
+
+            if (allBricksDisabled)
+            {
+                ball.ResetBall();
+                paddle.ResetPaddle();
+                gameFinished = true;
+                gameStarted = false;
+            }
         }
 
         internal void Draw()
@@ -148,13 +176,16 @@ namespace BrickBreaker
             switch (gameState)
             {
                 case GameState.Home:
-                    DrawText("Press SPACE to start!", GetScreenWidth() / 2 - 160, GetScreenHeight() / 2 - 75, 30, Color.WHITE);
-                    DrawText("Use SPACE to launch the ball and press A & D keys to move the paddle!", GetScreenWidth() / 2 - 550, GetScreenHeight() / 2 - 25, 30, Color.GOLD);
-                    DrawText("Press Q for Title Screen!", GetScreenWidth() / 2 - 180, GetScreenHeight() / 2 + 25, 30, Color.RED);
-                    DrawText("Press ESQ to quit application", GetScreenWidth() / 2 - 200, GetScreenHeight() / 2 + 75, 30, Color.LIME);
+                    DrawCenteredText("Press SPACE to start!", GetScreenHeight() / 2 - 75, 30, Color.WHITE);
+                    DrawCenteredText("Use SPACE to launch the ball and press A & D keys to move the paddle!", GetScreenHeight() / 2 - 25, 30, Color.GOLD);
+                    DrawCenteredText("Press Q for Title Screen!", GetScreenHeight() / 2 + 25, 30, Color.RED);
+                    DrawCenteredText("Press ESQ to quit application", GetScreenHeight() / 2 + 75, 30, Color.LIME);
                     break;
                 case GameState.Playing:
                     DrawPlaying();
+                    break;
+                case GameState.Finished:
+                    DrawFinished();
                     break;
                 case GameState.GameOver:
                     DrawGameOver();
@@ -172,6 +203,12 @@ namespace BrickBreaker
             DrawText($"Lives: {lives}", GetScreenWidth() - 120, 10, 30, Color.RED);
             DrawText($"Score: {scoreManager.Score}", 10, 10, 30, Color.GOLD);
 
+            if (gameFinished)
+            {
+                DrawFinished();
+                gameState = GameState.Finished;
+            }
+
             if (gameOver)
             {
                 DrawGameOver();
@@ -179,10 +216,22 @@ namespace BrickBreaker
             }
         }
 
+        private void DrawFinished()
+        {
+            DrawCenteredText($"Congratulations!!! Your Final Score Is: {scoreManager.Score}", GetScreenHeight() / 2, 30, Color.GOLD);
+            DrawCenteredText("Press R to restart!", GetScreenHeight() / 2 + 50, 30, Color.WHITE);
+        }
+
         private void DrawGameOver()
         {
-            DrawText("GAME OVER", GetScreenWidth() / 2 - 150, GetScreenHeight() / 2, 50, Color.RED);
-            DrawText("Press R to restart!", GetScreenWidth() / 2 - 150, GetScreenHeight() / 2 + 50, 30, Color.WHITE);
+            DrawCenteredText("GAME OVER", GetScreenHeight() / 2, 50, Color.RED);
+            DrawCenteredText("Press R to restart!", GetScreenHeight() / 2 + 50, 30, Color.WHITE);
+        }
+
+        private void DrawCenteredText(string text, int centerY, int fontSize, Color color)
+        {
+            float textWidth = MeasureText(text, fontSize);
+            DrawText(text, GetScreenWidth() / 2 - (int)(textWidth / 2), centerY, fontSize, color);
         }
 
         internal void Unload()
@@ -197,6 +246,7 @@ namespace BrickBreaker
     {
         Home,
         Playing,
+        Finished,
         GameOver
     }
 }
